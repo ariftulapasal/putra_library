@@ -1,0 +1,48 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="content-wrapper">
+
+        <body>
+            <h1>Add New Book</h1>
+            <form method="POST" action="{{ route('books.store') }}">
+                @csrf
+                <label>Title:</label>
+                <input type="text" name="title" required><br>
+
+                <label>Author:</label>
+                <input type="text" name="author" required><br>
+
+                <label>ISBN:</label>
+                <input type="text" name="isbn" required><br>
+
+                <label>Barcode:</label>
+                <input type="text" name="barcode" required><br>
+
+                <label>Published Year:</label>
+                <input type="number" name="published_year" required><br>
+
+                <label>Category:</label>
+                <input type="text" name="category" required><br>
+
+                <label for="status">Status:</label>
+                <select name="status" id="status" required>
+                    <option value="available">Available</option>
+                    <option value="borrowed">Borrowed</option>
+                    <option value="reserved">Reserved</option>
+                </select>
+                <br>
+
+                <!-- New Description Field and URL -->
+                <label>Description:</label>
+                <textarea name="description" rows="4" cols="50" placeholder="Enter book description..."></textarea><br>
+
+                <label>Image URL:</label>
+                <input type="text" name="image_url"><br>
+
+
+                <button type="submit">Add Book</button>
+            </form>
+        </body>
+    </div>
+@endsection

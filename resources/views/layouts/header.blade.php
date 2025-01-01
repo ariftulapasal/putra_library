@@ -11,6 +11,9 @@
           <li class="nav-item d-none d-sm-inline-block">
               <a href="#" class="nav-link">Contact</a>
           </li>
+          <li class="nav-item d-none d-sm-inline-block">
+            <a href="/about-us" class="nav-link">About Us</a>
+        </li>
       </ul>
 
       <!-- Right navbar links -->
@@ -184,39 +187,78 @@
                   data-accordion="false">
                   <!-- Add icons to the links using the .nav-icon class
                    with font-awesome or any other icon font library -->
-                  <li class="nav-item">
-                      <a href="{{ url('admin/dashboard') }}" class="nav-link">
-                          <i class="nav-icon far fa-calendar-alt"></i>
-                          <p>
-                              Dashboard
-                              <span class="badge badge-info right">Click Here</span>
-                          </p>
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <a href="{{ url('users') }}" class="nav-link">
-                          <i class="nav-icon far fa-image"></i>
-                          <p>
-                              User List
-                          </p>
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <a href="{{ url('books') }}" class="nav-link">
-                          <i class="nav-icon fas fa-columns"></i>
-                          <p>
-                              Book List
-                          </p>
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <a href="{{ url('logout') }}" class="nav-link">
-                          <i class="nav-icon far fa-user"></i>
-                          <p>
-                              Logout
-                          </p>
-                      </a>
-                  </li>
+
+                   @if(Auth::user()->role == "admin")
+                   <li class="nav-item">
+                    <a href="{{ url('admin/dashboard') }}" class="nav-link">
+                        <i class="nav-icon far fa-calendar-alt"></i>
+                        <p>
+                            Dashboard (Admin)
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('admin/list-user') }}" class="nav-link">
+                        <i class="nav-icon far fa-user"></i>
+                        <p>
+                            User List
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('admin/books') }}" class="nav-link">
+                        <i class="nav-icon fas fa-columns"></i>
+                        <p>
+                            Book List
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('/catalog') }}" class="nav-link">
+                        <i class="nav-icon fas fa-columns"></i>
+                        <p>
+                            Book Catalog
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('logout') }}" class="nav-link">
+                        <i class="nav-icon far fa-user"></i>
+                        <p>
+                            Logout
+                        </p>
+                    </a>
+                </li>
+
+                   @elseif(Auth::user()->role == "user")
+
+                   <li class="nav-item">
+                    <a href="{{ url('users/dashboard') }}" class="nav-link">
+                        <i class="nav-icon far fa-calendar-alt"></i>
+                        <p>
+                            Dashboard
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('/catalog') }}" class="nav-link">
+                        <i class="nav-icon far fa-calendar-alt"></i>
+                        <p>
+                            Book Catalog
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('logout') }}" class="nav-link">
+                        <i class="nav-icon far fa-user"></i>
+                        <p>
+                            Logout
+                        </p>
+                    </a>
+                </li>
+                   @endif
+
+                  
                   <!-- Buka jika perlu Sidebar Menu -->
                   {{-- <li class="nav-header">MISCELLANEOUS</li>
               <li class="nav-item">

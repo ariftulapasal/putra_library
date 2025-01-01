@@ -1,15 +1,31 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\User;
+
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class AdminController extends Controller
 {
-    public function list(){
+    // Make sure you have this __invoke method if you're using single-action controller
+    public function __invoke(Request $request)
+    {
+        return view('admin.dashboard');
+    }
+    
+    // Or if you're using regular controller methods, make sure they exist
+    public function dashboard()
+    {
+        return view('admin.dashboard');
+        // return response()->view('admin.dashboard');
+    }
 
+    public function list_user()
+    {
+        // Fetch all users from the database
         $users = User::all();
-        return view('admin.list', compact('users'));
 
+        // Pass users to the view
+        return view('users.index', compact('users')); // Use the name of the blade file
     }
 }

@@ -106,8 +106,8 @@ class FaceRegistrationController extends Controller
             $storedDescriptor = json_decode($user->face_descriptor);
             $distance = $this->calculateDistance($newDescriptor, $storedDescriptor);
             
-            // If distance is less than threshold, consider it a match
-            if ($distance < 0.6) {
+            // If distance is less than threshold, consider it a match -- 0.4
+            if ($distance < 0.4) {
                 return true;
             }
         }

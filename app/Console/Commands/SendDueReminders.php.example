@@ -1,0 +1,52 @@
+<?php
+
+namespace App\Console\Commands;
+
+use Illuminate\Console\Command;
+use App\Models\BorrowRecord;
+use App\Mail\DueReminderNotification;
+use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
+
+class SendDueReminders extends Command
+{
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'send:due-reminders';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Send email reminders to users for books that are due in 3 days';
+
+    /**
+     * Execute the console command.
+     */
+    public function handle()
+    {
+        // Fetch borrow records where books are due in exactly 3 days
+        $dueSoonBooks = BorrowRecord::with('book', 'user')
+            ->where('status', 'borrowed')
+            ->whereDate('due_date', '=', Carbon::now()->addDays(3)->toDateString())
+            ->get();
+
+        foreach ($dueSoonBooks as $borrowRecord) {
+            $book = $borrowRecord->book;
+            $user = $borrowRecord->user;
+            $daysRemaining = 3;
+
+            // Send email notification
+            Mail::to($user->email)->send(new DueReminderNotification($book, $user, $daysRemaining));
+
+            // Log the notification for debugging purposes
+            $this->info("Reminder sent to: {$user->email} for book: {$book->title}");
+        }
+
+        $this->info('All due reminders have been sent.');
+    }
+}

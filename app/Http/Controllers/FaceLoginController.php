@@ -1,5 +1,7 @@
 <?php
 
+//this is face login controller
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -12,8 +14,8 @@ class FaceLoginController extends Controller
 {
     // Maximum login attempts before temporary lockout
     const MAX_ATTEMPTS = 5;
-    // Threshold for face similarity (lower is stricter)
-    const FACE_SIMILARITY_THRESHOLD = 0.6;
+    // Threshold for face similarity (lower is stricter) - previously is 0.6
+    const FACE_SIMILARITY_THRESHOLD = 0.5;
 
     public function showLoginForm()
     {
@@ -34,7 +36,7 @@ class FaceLoginController extends Controller
 
             // Convert the face descriptor from string back to array
             $faceDescriptor = json_decode($request->face_descriptor);
-            
+
             // Validate face descriptor format
             if (!$this->isValidFaceDescriptor($faceDescriptor)) {
                 throw new FaceLoginException('Invalid face descriptor format');
@@ -61,17 +63,24 @@ class FaceLoginController extends Controller
             $this->clearFailedAttempts($request);
 
             // Log successful login
-            Log::info('Successful face login', ['user_id' => $user->id]);
-            
+            // Log::info('Successful face login', ['user_id' => $user->id]);
+            Log::info('Successful face login', [
+                'user_id' => $user->id,
+                'last_login' => $user->last_login
+            ]);
+
             Auth::login($user);
+
+            // Determine redirect path based on user role
+            $redirectPath = $this->getRedirectPath($user);
 
             return response()->json([
                 'success' => true,
-                'redirect' => '/dashboard',
+                'redirect' => $redirectPath,
                 'message' => 'Login successful'
             ]);
-
         } catch (FaceLoginException $e) {
+            // ... rest of the error handling remains the same
             Log::warning('Face login failed', [
                 'error' => $e->getMessage(),
                 'ip' => $request->ip()
@@ -80,7 +89,6 @@ class FaceLoginController extends Controller
                 'success' => false,
                 'message' => $e->getMessage()
             ], 401);
-
         } catch (\Exception $e) {
             Log::error('Face login error', [
                 'error' => $e->getMessage(),
@@ -102,10 +110,24 @@ class FaceLoginController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            // Update last login time
+            $user->update([
+                'last_login' => now()
+            ]);
+            
+
             $this->clearFailedAttempts($request);
+
+            // Get the authenticated user
+            $user = Auth::user();
+
+            // Determine redirect path based on user role
+            $redirectPath = $this->getRedirectPath($user);
+
             return response()->json([
                 'success' => true,
-                'redirect' => '/dashboard'
+                'redirect' => $redirectPath
             ]);
         }
 
@@ -113,7 +135,6 @@ class FaceLoginController extends Controller
             'success' => false,
             'message' => 'Invalid credentials'
         ], 401);
-
     }
 
     private function isValidFaceDescriptor($descriptor)
@@ -165,5 +186,15 @@ class FaceLoginController extends Controller
         return 'face_login_attempts_' . $request->ip();
     }
 
-    
+    private function getRedirectPath($user)
+    {
+        switch ($user->role) {
+            case 'admin':
+                return '/admin/dashboard';
+            case 'user':
+                return '/users/dashboard';
+            default:
+                return '/dashboard'; // fallback route
+        }
+    }
 }

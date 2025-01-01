@@ -8,9 +8,54 @@ use App\Http\Controllers\FaceLoginController;
 use App\Http\Controllers\FaceRegistrationController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\BookBorrowingController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BorrowController;
+use App\Http\Controllers\BookScanController;
+use App\Http\Controllers\ContactController;
+
+
+Route::middleware(['auth','role:admin'])->prefix('/admin')->group(function(){
+    // Route::get('/dashboard', function(){
+    //     return view('admin.dashboard');
+    //     // return "secret admin page";
+    // });
+    
+    //admin dashboard
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+
+    //list user
+    Route::get('/list-user', [UserController::class, 'index'])->name('users');
+
+    //list of book
+    Route::resource('books', BookController::class);
+    
+    // Book routes
+    Route::get('/books', [BookController::class, 'index'])->name('books.index');
+    Route::get('/books/create', [BookController::class, 'create'])->name('books.create');
+    Route::post('/books', [BookController::class, 'store'])->name('books.store');
+
+    //admin show all borrow records
+    Route::get('/borrow-records', [BorrowController::class, 'adminBorrowRecords'])->name('admin.borrow-records');
+    Route::post('/borrow-records/return/{id}', [BorrowController::class, 'markReturned']);
+    // Route::post('/admin/borrow-records/return/{id}', [BorrowController::class, 'markReturned'])->name('admin.borrow-records.return');
+
+    Route::get('/contact', [ContactController::class, 'show'])->name('contact.show');
+    Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
+
+});
+
+// Admin routes
+Route::middleware(['auth', 'admin'])->prefix('/admin')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    // Add more admin routes here
+});
+
+// User routes
+Route::middleware(['auth', 'user'])->prefix('/users')->group(function () {
+    Route::get('/dashboard', [UserController::class, 'dashboard'])->name('users');
+    // Add more user routes here
+});
+
 
 // Public (Guest) Routes
 Route::group(['middleware' => 'guest'], function () {
@@ -35,65 +80,60 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('/face-register/store', [FaceRegistrationController::class, 'store'])
         ->name('face.store');
 
-    // // Forgot password
-    // Route::get('/forgot-password', [AuthController::class, 'forgotPassword'])->name('forgot-password');
-    // Route::post('/forgot-password', [AuthController::class, 'postForgotPassword'])->name('forgot-password.post');
+    Route::get('/contact', [ContactController::class, 'show'])->name('contact.show');
+    Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
 
-    // // Reset password
-    // Route::get('/reset/{token}', [AuthController::class, 'reset'])->name('reset');
-    // Route::post('/reset/{token}', [AuthController::class, 'postReset'])->name('reset.post');
 });
 
 
-// Route::get('/borrowB', [BookBorrowController::class, 'showBorrowForm'])->name('borrow.show');
-// Route::post('/borrow/process', [BookBorrowController::class, 'processBorrow'])->name('borrow.process');
-
-
 Route::middleware(['auth'])->group(function () {
+
+    Route::get('/about-us', function () {
+        return view('about-us');
+    });
 
     //profile
     Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');
     Route::post('/profile/update', [UserProfileController::class, 'update'])->name('profile.update');
     Route::get('/current-user', [UserProfileController::class, 'getCurrentUser'])->name('current.user');
 
-    // Book Borrowing Routes
-    // Route::get('/books/borrow', [BookBorrowingController::class, 'showBorrowingPage'])
-    //     ->name('books.borrow');
 
-    // Route::post('/books/verify-barcode', [BookBorrowingController::class, 'verifyBookBarcode'])
-    //     ->name('books.verify-barcode');
+    //new update 15.12.24
+    Route::get('/scan', [BookScanController::class, 'showScanner'])->name('books.scan');
+    Route::post('/scan', [BookScanController::class, 'fetchBook'])->name('books.fetch');
 
-    // Route::post('/books/borrow', [BookBorrowingController::class, 'borrowBook'])
-    //     ->name('books.borrow-book');
+    Route::post('/books/borrow', [BookController::class, 'borrowBooks'])->name('books.borrow');
 
-    Route::get('/borrow', [BorrowController::class, 'index'])->name('borrow.index');
     Route::post('/borrow', [BorrowController::class, 'store'])->name('borrow.store');
+
+    Route::get('/return', [BorrowController::class, 'showReturn'])->name('books.return');
+    Route::get('/books/borrowed', [BorrowController::class, 'showBorrowed'])->name('books.borrowed');
+    Route::post('/books/return', [BorrowController::class, 'returnBook'])->name('books.return');
+
+    Route::get('/users/borrow-records', [BorrowController::class, 'showUserBorrowRecords'])->name('users.borrow.records');
+
+    Route::get('/catalog', [BookController::class, 'catalog'])->name('books.catalog');
 
     //Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
 
-    //list of book
-    Route::resource('books', BookController::class);
-
-    // Book routes
-
-    Route::get('/books', [BookController::class, 'index'])->name('books.index');
-    Route::get('/books/create', [BookController::class, 'create'])->name('books.create');
-    Route::post('/books', [BookController::class, 'store'])->name('books.store');
+    // //list of book
+    // Route::resource('books', BookController::class);
+    
+    // // Book routes
+    // Route::get('/books', [BookController::class, 'index'])->name('books.index');
+    // Route::get('/books/create', [BookController::class, 'create'])->name('books.create');
+    // Route::post('/books', [BookController::class, 'store'])->name('books.store');
 
     Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('users.index');
 
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-});
 
-Route::get('/admin/listUser', [AdminController::class, 'list'])->name('admin.listUser');
-Route::get('/admin/listUser', [UserController::class, 'list'])->name('admin.listUser');
+// Route::get('/admin/listUser', [AdminController::class, 'list'])->name('admin.listUser');
+// Route::get('/admin/listUser', [UserController::class, 'list'])->name('admin.listUser');
 
 // Route::get('/', [AuthController::class, 'login'])->name('login');
 // Route::post('/login', [AuthController::class, 'AuthLogin'])->name('login');
-

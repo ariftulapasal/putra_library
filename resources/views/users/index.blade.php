@@ -30,6 +30,7 @@
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Created At</th>
+                                            <th>Last Login</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -39,10 +40,11 @@
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ $user->email }}</td>
                                                 <td>{{ $user->created_at }}</td>
+                                                <td>{{ $user->last_login }}</td>
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="4" class="text-center">No users found</td>
+                                                <td colspan="5" class="text-center">No users found</td>
                                             </tr>
                                         @endforelse
                                     </tbody>

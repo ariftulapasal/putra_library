@@ -1,100 +1,300 @@
 @extends('layouts.app')
 
 @section('content')
-
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Dashboard</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v1</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
-        <div class="row">
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3>150</h3>
-
-                <p>Borrow Book</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-bag"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                <p>Return Book</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3>44</h3>
-
-                <p>User Registrations</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3>65</h3>
-
-                <p>Unique Visitors</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Admin Dashboard</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Dashboard v1</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
         </div>
-        <!-- /.row -->
-        <!-- Main row -->
-        <div class="row">
-          <!-- Left col -->
-          <section class="col-lg-7 connectedSortable">
-            <!-- Custom tabs (Charts with tabs)-->
-            {{-- <div class="card">
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <!-- Small boxes (Stat box) -->
+                <div class="row">
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <h3>Borrow Book</h3>
+
+                                <p>Scan & Go !</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-bag"></i>
+                            </div>
+                            <a href="/scan" class="small-box-footer">Borrow Now <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-success">
+                            <div class="inner">
+                                <h3>Return Book<sup style="font-size: 20px"></sup></h3>
+                                {{-- <h2>Return Before Due!</h2> --}}
+
+                                <p>Return Before Due!</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-stats-bars"></i>
+                            </div>
+                            <a href="/return" class="small-box-footer">Return Now <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-warning">
+                            <div class="inner">
+                                <h3>Borrow Records</h3>
+                                {{-- <h2>Admin</h2> --}}
+                                {{-- <h1>Admin</h1>
+
+                                <p>(Admin)</p> --}}
+                                <p>(Admin)</p>
+
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-person-add"></i>
+                            </div>
+                            <a href="/admin/borrow-records" class="small-box-footer">See All User Borrow Records <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-danger">
+                            <div class="inner">
+                                <h3>Book Catalog</h3>
+
+                                <p>Search your desire Books!</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-pie-graph"></i>
+                            </div>
+                            <a href="/catalog" class="small-box-footer">See Catalog <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                </div>
+                <!-- /.row -->
+
+                <!-- What's New Slider -->
+                {{-- <div class="row mb-4">
+                    <div class="col-12">
+                        <div id="whatsNewCarousel" class="carousel slide" data-ride="carousel">
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators">
+                                <li data-target="#whatsNewCarousel" data-slide-to="0" class="active"></li>
+                                <li data-target="#whatsNewCarousel" data-slide-to="1"></li>
+                                <li data-target="#whatsNewCarousel" data-slide-to="2"></li>
+                            </ol>
+
+                            <!-- Slides -->
+                            <div class="carousel-inner">
+                                <!-- Slide 1 -->
+                                <div class="carousel-item active">
+                                    <a href="https://example.com/new-books" target="_blank" style="text-decoration: none;">
+                                        <div class="d-flex justify-content-center align-items-center"
+                                            style="height: 200px; background-color: #f8f9fa;">
+                                            <h5 class="text-center text-primary">📢 New Library Books Added! Click to
+                                                explore.</h5>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <!-- Slide 2 -->
+                                <div class="carousel-item">
+                                    <a href="https://example.com/events" target="_blank" style="text-decoration: none;">
+                                        <div class="d-flex justify-content-center align-items-center"
+                                            style="height: 200px; background-color: #f8f9fa;">
+                                            <h5 class="text-center text-success">📅 Upcoming Events - Check our schedule!
+                                            </h5>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <!-- Slide 3 -->
+                                <div class="carousel-item">
+                                    <a href="https://example.com/scanner-feature" target="_blank"
+                                        style="text-decoration: none;">
+                                        <div class="d-flex justify-content-center align-items-center"
+                                            style="height: 200px; background-color: #f8f9fa;">
+                                            <h5 class="text-center text-danger">🎉 Scan & Borrow books using our new
+                                                feature!</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Controls -->
+                            <a class="carousel-control-prev" href="#whatsNewCarousel" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#whatsNewCarousel" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    </div>
+                </div> --}}
+
+                <!-- What's New Slider -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                      <h3 class="text-center">📢 What's New?</h3>
+                        <div id="whatsNewCarousel" class="carousel slide" data-ride="carousel">
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators">
+                                <li data-target="#whatsNewCarousel" data-slide-to="0" class="active"></li>
+                                <li data-target="#whatsNewCarousel" data-slide-to="1"></li>
+                                <li data-target="#whatsNewCarousel" data-slide-to="2"></li>
+                            </ol>
+
+                            <!-- Slides -->
+                            <div class="carousel-inner">
+                                <!-- Slide 1 -->
+                                <div class="carousel-item active">
+                                    <div
+                                        style="position: relative; width: 100%; height: 0; padding-top: 28.1250%;
+                                padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+                                border-radius: 8px; will-change: transform;">
+                                        <iframe loading="lazy"
+                                            style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+                                            src="https://www.canva.com/design/DAGZccQ0b-k/2qSuYXMxKd1G_F57cU6V3w/view?embed"
+                                            allowfullscreen="allowfullscreen" allow="fullscreen">
+                                        </iframe>
+                                    </div>
+                                    <a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAGZccQ0b-k&#x2F;2qSuYXMxKd1G_F57cU6V3w&#x2F;view?utm_content=DAGZccQ0b-k&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link"
+                                        target="_blank" rel="noopener">Design</a> by Infinite Creative
+                                </div>
+
+                                <!-- Slide 2: Embed Canva Design -->
+                                <div class="carousel-item">
+                                    <div
+                                        style="position: relative; width: 100%; height: 0; padding-top: 28.1250%;
+                                  padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+                                  border-radius: 8px; will-change: transform;">
+                                        <iframe loading="lazy"
+                                            style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+                                            src="https://www.canva.com/design/DAGZcgyx8kE/yCGBzPdUbh5_JuiZeQkr4g/view?embed"
+                                            allowfullscreen="allowfullscreen" allow="fullscreen">
+                                        </iframe>
+                                    </div>
+                                    <a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAGZcgyx8kE&#x2F;yCGBzPdUbh5_JuiZeQkr4g&#x2F;view?utm_content=DAGZcgyx8kE&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link"
+                                        target="_blank" rel="noopener">Design</a> by Infinite Creative
+                                </div>
+
+                                <!-- Slide 3 -->
+                                <div class="carousel-item">
+                                    <div
+                                        style="position: relative; width: 100%; height: 0; padding-top: 28.1250%;
+                                padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+                                border-radius: 8px; will-change: transform;">
+                                        <iframe loading="lazy"
+                                            style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+                                            src="https://www.canva.com/design/DAGZcbNWM4s/erksCYfU-0iEiYeq7sndIA/watch?embed"
+                                            allowfullscreen="allowfullscreen" allow="fullscreen">
+                                        </iframe>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!-- Controls -->
+                            <a class="carousel-control-prev" href="#whatsNewCarousel" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#whatsNewCarousel" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- <!-- Canva Multi-Page Embed Section -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <h3 class="text-center">📢 Enhance User Experiences</h3>
+                        <!-- Responsive Embed Container -->
+                        <div
+                            style="position: relative; width: 100%; height: 0; padding-top: 28.125%; 
+                  box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; 
+                  overflow: hidden; border-radius: 8px; will-change: transform;">
+                            <iframe loading="lazy"
+                                style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0;"
+                                src="https://www.canva.com/design/DAGZcbNWM4s/erksCYfU-0iEiYeq7sndIA/watch?embed&autoplay=1"
+                                allowfullscreen="allowfullscreen" allow="fullscreen">
+                            </iframe>
+                        </div>
+
+                        <!-- View Full Design Button -->
+                        <p class="text-center mt-3">
+                            <a href="https://www.canva.com/design/DAGZcbNWM4s/erksCYfU-0iEiYeq7sndIA/watch?utm_content=DAGZcbNWM4s&utm_campaign=designshare&utm_medium=embeds&utm_source=link"
+                                target="_blank" rel="noopener" class="btn btn-primary">
+                                View Full Design on Canva
+                            </a>
+                        </p>
+                    </div>
+                </div> --}}
+
+                <div class="video-text-container" style="display: flex; align-items: center; gap: 20px;">
+                  <!-- Video Embed -->
+                  <div style="flex: 0 0 50%; position: relative; padding-top: 28.125%; overflow: hidden; border-radius: 8px;">
+                      <iframe 
+                          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
+                          src="https://www.youtube.com/embed/HkVGFBNhL9g?autoplay=0&mute=0&controls=1&rel=0" 
+                          title="YouTube video player" 
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                          allowfullscreen>
+                      </iframe>
+                  </div>
+              
+                  <!-- Text Section -->
+                  <div style="flex: 1;">
+                      <h3 style="margin-bottom: 10px; font-family: Arial, sans-serif; font-size: 1.5rem;">Serdang Oh Serdang</h3>
+                      <p style="font-size: 1rem; color: #555;">
+                          This video celebrates the beautiful moments of togetherness at Serdang. Enjoy the nostalgic trip 
+                          down memory lane with your friends and classmates.
+                      </p>
+                  </div>
+              </div>
+              
+
+
+
+
+
+
+                <!-- Main row -->
+                <div class="row">
+
+                    <!-- Left col -->
+                    <section class="col-lg-7 connectedSortable">
+                        <!-- Custom tabs (Charts with tabs)-->
+                        {{-- <div class="card">
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-chart-pie mr-1"></i>
@@ -124,10 +324,10 @@
                 </div>
               </div><!-- /.card-body -->
             </div> --}}
-            <!-- /.card -->
+                        <!-- /.card -->
 
-            <!-- DIRECT CHAT -->
-            {{-- <div class="card direct-chat direct-chat-primary">
+                        <!-- DIRECT CHAT -->
+                        {{-- <div class="card direct-chat direct-chat-primary">
               <div class="card-header">
                 <h3 class="card-title">Direct Chat</h3>
 
@@ -326,10 +526,10 @@
               </div>
               <!-- /.card-footer-->
             </div> --}}
-            <!--/.direct-chat -->
+                        <!--/.direct-chat -->
 
-            <!-- TO DO List -->
-            {{-- <div class="card">
+                        <!-- TO DO List -->
+                        {{-- <div class="card">
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="ion ion-clipboard mr-1"></i>
@@ -457,14 +657,14 @@
                 <button type="button" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Add item</button>
               </div>
             </div> --}}
-            <!-- /.card -->
-          </section>
-          <!-- /.Left col -->
-          <!-- right col (We are only adding the ID to make the widgets sortable)-->
-          <section class="col-lg-5 connectedSortable">
+                        <!-- /.card -->
+                    </section>
+                    <!-- /.Left col -->
+                    <!-- right col (We are only adding the ID to make the widgets sortable)-->
+                    <section class="col-lg-5 connectedSortable">
 
-            <!-- Map card -->
-            {{-- <div class="card bg-gradient-primary">
+                        <!-- Map card -->
+                        {{-- <div class="card bg-gradient-primary">
               <div class="card-header border-0">
                 <h3 class="card-title">
                   <i class="fas fa-map-marker-alt mr-1"></i>
@@ -506,10 +706,10 @@
                 <!-- /.row -->
               </div>
             </div> --}}
-            <!-- /.card -->
+                        <!-- /.card -->
 
-            <!-- solid sales graph -->
-            {{-- <div class="card bg-gradient-info">
+                        <!-- solid sales graph -->
+                        {{-- <div class="card bg-gradient-info">
               <div class="card-header border-0">
                 <h3 class="card-title">
                   <i class="fas fa-th mr-1"></i>
@@ -557,10 +757,10 @@
               </div>
               <!-- /.card-footer -->
             </div> --}}
-            <!-- /.card -->
+                        <!-- /.card -->
 
-            <!-- Calendar -->
-            {{-- <div class="card bg-gradient-success">
+                        <!-- Calendar -->
+                        {{-- <div class="card bg-gradient-success">
               <div class="card-header border-0">
 
                 <h3 class="card-title">
@@ -597,15 +797,14 @@
               </div>
               <!-- /.card-body -->
             </div> --}}
-            <!-- /.card -->
-          </section>
-          <!-- right col -->
-        </div>
-        <!-- /.row (main row) -->
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-
+                        <!-- /.card -->
+                    </section>
+                    <!-- right col -->
+                </div>
+                <!-- /.row (main row) -->
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
 @endsection

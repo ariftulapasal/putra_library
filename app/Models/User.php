@@ -7,10 +7,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+use Spatie\Permission\Traits\HasRoles;
+
+/**
+ * @method static \Illuminate\Database\Eloquent\Builder|User role(string $role)
+ */
+
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+    
+    use HasRoles;
+
+    protected $guard_name = 'web'; // or whatever guard you want to use
 
     /**
      * The attributes that are mass assignable.
@@ -21,7 +31,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'face_descriptor'
+        'face_descriptor',
+        'role',
+        'last_login',  // Add this
+        'profile_photo',
     ];
 
     /**
@@ -38,7 +51,7 @@ class User extends Authenticatable
         'created_at',
         'updated_at',
         'email_verified_at',
-        'last_login'
+        'last_login',
     ];
 
     /**
@@ -51,12 +64,23 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'last_login' => 'datetime',
         ];
     }
 
     public function borrows()
     {
         return $this->hasMany(Borrow::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isUser()
+    {
+        return $this->role === 'user';
     }
 
 }
